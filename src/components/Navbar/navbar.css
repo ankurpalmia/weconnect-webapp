@@ -1,0 +1,10 @@
+.navbar-component {
+    display: flex;
+    padding: 20px 80px;
+    background-color: slateblue;
+}
+
+.navbar-logo a{
+    font-size: 30px;
+    color: white;
+}
