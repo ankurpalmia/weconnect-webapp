@@ -5,6 +5,8 @@ import PublicRoute from './components/PublicRoute';
 import HomeContainer from './containers/HomeContainer';
 import Navbar from './components/Navbar';
 import PageNotFound from './components/PageNotFound';
+import { SIGNUP } from './constants';
+import SignupContainer from './containers/SignupContainer';
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
     <Navbar />
       <Switch>
         <PublicRoute exact path="/" component={HomeContainer} />
+        <PublicRoute exact path={SIGNUP} component={SignupContainer} />
         <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
