@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Input, Button, Container, FormText, FormFeedback } from 'reactstrap';
 import './Signup.css';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import { LOGIN, SIGNUP_SUCCESS_PAGE } from '../../constants';
+import { signupAction, clearSignupError } from '../../actions/signupAction';
+import { connect, useSelector } from 'react-redux';
 
 function Signup(props) {
 
     const [usernameError, setUsernameError] = useState("");
     const [emailError, setEmailError] = useState("");
+
+    let emailAuthError = useSelector(state => state.signup.emailError);
+    let usernameAuthError = useSelector(state => state.signup.usernameError);
+    let authError = useSelector(state => state.signup.error);
 
     const [state, setState] = useState({
         firstName: "",
@@ -105,10 +113,33 @@ function Signup(props) {
         }));
     }
 
+    if (authError === false) {
+        props.history.push(SIGNUP_SUCCESS_PAGE);
+    }
+
+    if (emailAuthError) {
+        setEmailError(emailAuthError);
+        setValidate(state => ({
+            ...state,
+            ["email"]: false
+        }));
+        props.clearSignupError();
+    }
+
+    if (usernameAuthError) {
+        console.log(usernameAuthError)
+        setUsernameError(usernameAuthError);
+        setValidate(state => ({
+            ...state,
+            ["username"]: false
+        }));
+        props.clearSignupError();
+    }
+
     const submitSignupForm = event => {
         event.preventDefault();
-        const {firstName, email, username, password, confirmPassword} = validate
-        if(firstName && email && username && password && confirmPassword ){
+        const { firstName, email, username, password, confirmPassword } = validate
+        if (firstName && email && username && password && confirmPassword) {
             let user = {
                 "email": state.email,
                 "username": state.username,
@@ -118,7 +149,11 @@ function Signup(props) {
                 "date_of_birth": state.dob,
                 "gender": state.gender
             }
-            console.log(user)
+            console.log("in sugnup component", user)
+            props.signupAction(user);
+        }
+        else {
+            console.log("Error in signup component", validate)
         }
     }
 
@@ -289,8 +324,9 @@ function Signup(props) {
                     </Row>
                 </Container>
             </Form>
+            Already registered? <Link to={LOGIN}>Login here</Link>
         </div>
     )
 }
 
-export default withRouter(Signup);
+export default connect(null, { signupAction, clearSignupError })(withRouter(Signup));

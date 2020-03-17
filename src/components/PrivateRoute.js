@@ -1,17 +1,18 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { LOGIN } from "../constants";
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => {
   
-    // const loggedIn = useSelector(state => state.user.userAuth);
+    const loggedIn = useSelector(state => state.login.auth);
+    console.log("in private route", loggedIn)
 
   return (
     <Route
       {...rest}
       render={props => {
-        if (loggedIn === null) return <h1>Loading...</h1>;
-        return loggedIn ? <Component {...props} /> : <Redirect to="Login" />;
+        return loggedIn ? <Component {...props} /> : <Redirect to={LOGIN} />;
       }}
     />
   );
