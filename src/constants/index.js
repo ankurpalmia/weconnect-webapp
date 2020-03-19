@@ -2,12 +2,16 @@ export const SIGNUP = `/signup`;
 export const LOGIN = `/login`;
 export const SIGNUP_SUCCESS_PAGE = `/signup-success`;
 export const FEED_PAGE = `/feed`;
+export const PROFILE = `profile/`
 
 const BASE_URL = `http://localhost:8000/`;
 export const SIGNUP_API = `${BASE_URL}user/signup/`;
 export const LOGIN_API = `${BASE_URL}user/login/`;
 export const LOGOUT_API = `${BASE_URL}user/logout/`;
 export const GET_USER_API = `${BASE_URL}user/getuser/`;
+export const GET_FEED_POSTS_API = `${BASE_URL}post/getposts/`;
+export const USER_POST_API = `${BASE_URL}post/userpost/`;
+export const GET_FRIENDS_API = `${BASE_URL}post/getfriends/`;
 
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_EMAIL_ERROR = 'SIGNUP_EMAIL_ERROR';
@@ -19,3 +23,9 @@ export const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR';
 export const GET_USER_DETAILS = 'GET_USER_DETAILS';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const GOT_FEED_POSTS = 'GOT_FEED_POSTS';
+export const SET_USER_VERIFIED = 'SET_USER_VERIFIED'; 
+export const CLEAR_VERIFIED_ERROR = 'CLEAR_VERIFIED_ERROR';
+export const GET_FRIENDS_LIST = 'GET_FRIENDS_LIST';
+export const LIST_CHANGED = 'LIST_CHANGED';
+export const RESET_LIST_CHANGES = 'RESET_LIST_CHANGES';

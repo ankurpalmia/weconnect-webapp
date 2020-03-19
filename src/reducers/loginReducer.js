@@ -29,12 +29,14 @@ export const loginReducer = (state=initialState, action) => {
         case GET_USER_DETAILS:
             return {
                 ...state,
-                userDetails: action.payload
+                userDetails: action.payload,
+                auth: true
             }
         case AUTH_ERROR:
             return {
                 ...state,
-                userDetails: null
+                userDetails: null,
+                auth: false
             }
         case USER_LOGOUT:
             return {

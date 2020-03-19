@@ -6,12 +6,12 @@ import { LOGIN } from "../constants";
 const PrivateRoute = ({ component: Component, auth, ...rest }) => {
   
     const loggedIn = useSelector(state => state.login.auth);
-    console.log("in private route", loggedIn)
 
   return (
     <Route
       {...rest}
       render={props => {
+        if(loggedIn === null) return <div>Loading...</div>
         return loggedIn ? <Component {...props} /> : <Redirect to={LOGIN} />;
       }}
     />

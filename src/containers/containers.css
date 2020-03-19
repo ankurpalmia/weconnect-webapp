@@ -18,3 +18,10 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.my-feed-div {
+    border-bottom: 1px lightgray solid;
+    width: 600px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}

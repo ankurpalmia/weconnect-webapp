@@ -5,7 +5,7 @@ import PublicRoute from './components/PublicRoute';
 import HomeContainer from './containers/HomeContainer';
 import Navbar from './components/Navbar';
 import PageNotFound from './components/PageNotFound';
-import { SIGNUP, LOGIN, SIGNUP_SUCCESS_PAGE, FEED_PAGE } from './constants';
+import { SIGNUP, LOGIN, SIGNUP_SUCCESS_PAGE, FEED_PAGE, PROFILE } from './constants';
 import SignupContainer from './containers/SignupContainer';
 import LoginContainer from './containers/LoginContainer';
 import SignupSuccess from './containers/SignupSuccess';
@@ -28,6 +28,7 @@ function App(props) {
         <PublicRoute exact path={SIGNUP} component={SignupContainer} />
         <PublicRoute exact path={LOGIN} component={LoginContainer} />
         <PublicRoute exact path={SIGNUP_SUCCESS_PAGE} component={SignupSuccess} />
+        <PrivateRoute exact path={`${PROFILE}:username`} component="" />
         <PrivateRoute exact path={FEED_PAGE} component={FeedContainer} />
         <Route component={PageNotFound} />
       </Switch>
