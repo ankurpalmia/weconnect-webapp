@@ -25,3 +25,60 @@
     margin-bottom: 15px;
     padding-bottom: 5px;
 }
+
+.show-profile-container {
+    background-color: lightslategray;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    align-items: flex-end;
+}
+
+.show-profile-pic-div {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.show-pic-and-name {
+    display: flex;
+    align-items: flex-end;
+}
+
+.show-profile-image {
+    height: 200px;
+    margin-right: 10px;
+}
+
+.show-profile-details {
+    font-size: 25px;
+    padding: 20px;
+}
+
+.show-profile-name {
+    font-size: 35px;
+}
+
+.show-profile-about {
+    padding: 20px;
+}
+
+.show-profile-dob {
+    padding-top: 10px;
+}
+
+.edit-profile-btn {
+    margin: 20px 50px;   
+}
+
+.friends-btn {
+    margin: 20px 50px;
+}
+
+.email-verify {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 25px;
+}

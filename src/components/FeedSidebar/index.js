@@ -26,10 +26,6 @@ function FeedSidebar(props) {
     })
 
     useEffect(() => {
-        props.getFriendsAction();
-    }, [])
-
-    useEffect(() => {
         if (myFriendsList) {
             let tempFriendsList = []
             for (let i = 0; i < myFriendsList.length; i++) {
@@ -101,13 +97,7 @@ function FeedSidebar(props) {
 
     const submitCreatePost = (e) => {
         e.preventDefault();
-        // const formData = {
-        //     text: postForm.text,
-        //     image: postForm.image,
-        //     privacy: postForm.privacy,
-        //     custom_list: postForm.customList
-        // }
-
+        
         let formData = new FormData();
         formData.append('text', postForm.text);
         if(postForm.image)
@@ -139,7 +129,7 @@ function FeedSidebar(props) {
                 </div>
                 <div className="sidebar-btn">
                     Edit Profile
-                    </div>
+                </div>
                 <div className="sidebar-btn" onClick={openCreatePost}>
                     Create Post
                 </div>

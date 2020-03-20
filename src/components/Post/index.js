@@ -103,7 +103,7 @@ function PostComponent(props) {
             <div className="post-container">
                 <div className="post-user-top">
                     <div className="post-user-info">
-                        <img src={defaultPic} alt="Profile Pic" className="post-user-dp" />
+                        <img src={"http://localhost:8000" + post.created_by.profile_pic} alt="Profile Pic" className="post-user-dp" />
                         {post.created_by.full_name}
                     </div>
                     <div className="post-user-date">{post.created_at}</div>

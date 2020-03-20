@@ -1,37 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './ShowPosts.css';
-import { useSelector, connect, shallowEqual } from 'react-redux';
-import { getFriendsAction, getFeedPostsAction, fetchMorePosts, resetListChanged } from '../../actions/getPosts';
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
 import PostComponent from '../Post';
 
 function ShowPosts(props) {
 
-    let postList = useSelector(state => state.posts.feedPosts, shallowEqual);
-    let feedNext = useSelector(state => state.posts.feedNext);
-    let feedCount = useSelector(state => state.posts.feedCount);
-    let postCreated = useSelector(state => state.posts.postCreated);
-    let listChanged = useSelector(state => state.posts.listChanged);
-
-    useEffect(() => {
-        props.getFeedPostsAction();
-    }, [postCreated])
-
-    const fetchMoreData = () => {
-        props.fetchMorePosts(feedNext);
-    }
-
-    useEffect(() => {
-        props.getFriendsAction();
-    }, [])
-
-    if (listChanged) {
-        props.getFeedPostsAction();
-        props.resetListChanged();
-    }
-
-
+    let { postList, feedNext, feedCount, fetchMoreData } = props;
+    
     return (
         postList &&
         <InfiniteScroll
@@ -52,4 +29,4 @@ function ShowPosts(props) {
     )
 }
 
-export default connect(null, { getFeedPostsAction, fetchMorePosts, getFriendsAction, resetListChanged })(withRouter(ShowPosts));
+export default connect(null, null)(withRouter(ShowPosts));
