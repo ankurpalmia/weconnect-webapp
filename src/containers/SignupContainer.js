@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Signup from '../components/Signup';
 import bgimage from '../assets/weconnect.png';
 import { Row, Col, Container } from 'reactstrap';
 
 export default function SignupContainer() {
+
+    useEffect(() => {
+        document.title = "WeConnect: Signup";
+    }, [])
 
     return (
         <Container className="container signup-container">

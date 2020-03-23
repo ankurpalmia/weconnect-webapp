@@ -30,6 +30,7 @@ function FeedContainer(props) {
         props.getFeedPostsAction();
         props.loadUser();
         props.getFriendsAction();
+        document.title = "WeConnect: Feed"
     }, [])
 
     return (

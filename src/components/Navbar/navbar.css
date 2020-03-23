@@ -2,9 +2,22 @@
     display: flex;
     padding: 15px 80px;
     background-color: slateblue;
+    justify-content: space-between;
 }
 
 .navbar-logo a{
     font-size: 30px;
     color: white;
+}
+
+.nav-links-div {
+    display: flex;
+}
+
+.search-bar-div {
+    margin: auto;
+}
+
+.search-button {
+    box-shadow: -5px 0px 5px -2px #aaaaaa;
 }

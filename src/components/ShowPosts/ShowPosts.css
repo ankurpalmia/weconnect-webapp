@@ -47,10 +47,29 @@
     cursor: pointer;
 }
 
+.unlike-button {
+    padding: 5px 10px;
+    background-color: slateblue;
+    color: white;
+    border: 1px slateblue solid;
+    cursor: pointer;
+}
+
 .edit-button {
     padding: 5px 10px;
     color: slateblue;
     border: 1px slateblue solid;
+    cursor: pointer;
+}
+
+.like-unlike-span {
+    padding: 0;
+}
+
+.like-count {
+    margin-left: 10px;
+    color: gray;
+    font-size: 15px;
     cursor: pointer;
 }
 

@@ -1,4 +1,4 @@
-import { USER_POST_API } from "../constants";
+import { USER_POST_API, LIKE_UNLIKE_API } from "../constants";
 import { getToken } from "./getToken";
 import axios from "axios";
 
@@ -32,6 +32,15 @@ export const deleteUserPost = (pk) => {
     let deleteUrl = url + pk + "/";
     return axios.delete(
         deleteUrl,
+        tokenConfig
+    )
+}
+
+export const likeUnlikeService = (data) => {
+    url = LIKE_UNLIKE_API;
+    return axios.post(
+        url,
+        data,
         tokenConfig
     )
 }

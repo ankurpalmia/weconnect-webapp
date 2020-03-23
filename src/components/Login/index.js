@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Input, Button, Container, FormText, FormFeedback } from 'reactstrap';
 import './Login.css';
 import { withRouter } from 'react-router';
-import { SIGNUP, FEED_PAGE } from '../../constants';
+import { SIGNUP, FEED_PAGE, FORGOT_PASS_PAGE } from '../../constants';
 import { Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { loginAction, clearLoginError } from '../../actions/loginAction';
@@ -153,6 +153,7 @@ function Login(props) {
                     </Row>
                 </Container>
             </Form>
+            <Link to={FORGOT_PASS_PAGE}>Forgot Password</Link> <br />
             New User? <Link to={SIGNUP}>Signup here</Link>
         </div>
     )

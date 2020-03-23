@@ -20,6 +20,7 @@ function SignupSuccess(props) {
         else {
             props.clearSignupError();
         }
+        document.title = "WeConnect: Signup";
     }, [])
 
     return (

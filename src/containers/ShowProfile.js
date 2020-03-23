@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, shallowEqual } from 'react-redux';
-import defaultPic from '../assets/defaultPic.png';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import './containers.css';
 import { Button, Row, Col } from 'reactstrap';
 import ShowPosts from '../components/ShowPosts';
@@ -9,18 +8,23 @@ import { getUserProfile, getUserPosts, fetchMoreProfilePosts, sendRequestAction 
 import { resetListChanged } from '../actions/getPosts';
 import { checkVerified, clearVerifiedError } from '../actions/loadUser';
 import { clearResponded } from '../actions/requestRespond';
+import { Link } from 'react-router-dom';
+import { EDIT_PROFILE_PAGE } from '../constants';
+import PageNotFound from '../components/PageNotFound';
+import { clear404Error } from '../actions/clear404Error';
 
 
 function ShowProfile(props) {
 
     let user = useSelector(state => state.profile.userDetails, shallowEqual);
-    let authUser = useSelector(state => state.login.userDetails);
-    let postList = useSelector(state => state.profile.postList, shallowEqual);
     let postNext = useSelector(state => state.profile.postNext);
+    let postList = useSelector(state => state.profile.postList, shallowEqual);
+    let authUser = useSelector(state => state.login.userDetails);
     let postCount = useSelector(state => state.profile.postCount);
-    let listChanged = useSelector(state => state.posts.listChanged);
-    const userVerified = useSelector(state => state.posts.userVerified);
     let requestSent = useSelector(state => state.friend.requestSent);
+    let listChanged = useSelector(state => state.posts.listChanged);
+    let userVerified = useSelector(state => state.posts.userVerified);
+    let pageNotFound = useSelector(state => state.noPage.pageNotFound);
 
     const [verifiedError, setVerifiedError] = useState("");
 
@@ -38,13 +42,22 @@ function ShowProfile(props) {
         let username = props.match.params.username;
         props.getUserProfile(username);
         props.getUserPosts(username);
+        document.title = `WeConnect: ${username}`;
     }, [])
+
+    useEffect(() => {
+        let username = props.match.params.username;
+        if (user && user.username !== username) {
+            props.getUserProfile(username);
+            props.getUserPosts(username);
+        }
+    }, [props.match.params.username])
 
     const sendFriendRequest = () => {
         props.checkVerified();
     }
 
-    if(requestSent) {
+    if (requestSent) {
         let username = props.match.params.username;
         props.getUserProfile(username);
         props.clearResponded();
@@ -61,6 +74,9 @@ function ShowProfile(props) {
         props.clearVerifiedError();
     }
 
+    if (pageNotFound) {
+        return <PageNotFound />
+    }
 
     return (
         user && authUser &&
@@ -78,33 +94,26 @@ function ShowProfile(props) {
                             @{user.username}
                         </div>
                     </div>
-                    {user.username === authUser.username ?
-                        (<div className="edit-profile-btn">
-                            <Button>
-                                Edit Profile
-                            </Button>
+                    {user.username !== authUser.username &&
+                        <div className="friends-btn">
+                            {user.is_friend === true &&
+                                <Button color="success">
+                                    Friends
+                                    </Button>
+                            }
+                            {user.is_friend === false &&
+                                <Button color="secondary">
+                                    Pending
+                                    </Button>
+                            }
+                            {user.is_friend === null &&
+                                <Button color="primary" onClick={sendFriendRequest}>
+                                    Send Friend Request
+                                    </Button>
+                            }
+                            {verifiedError}
                         </div>
-                        ) : (
-                            <div className="friends-btn">
-                                {user.is_friend === true &&
-                                    <Button color="success">
-                                        Friends
-                            </Button>
-                                }
-                                {user.is_friend === false &&
-                                    <Button color="secondary">
-                                        Pending
-                            </Button>
-                                }
-                                {user.is_friend === null &&
-                                    <Button color="primary" onClick={sendFriendRequest}>
-                                        Send Friend Request
-                            </Button>
-                                }
-
-                                {verifiedError}
-                            </div>
-                        )}
+                    }
                 </div>
                 <div className="show-profile-about">
                     About:
@@ -119,7 +128,17 @@ function ShowProfile(props) {
             <div className="container">
                 <Row>
                     <Col sm="4">
-
+                        {user.username === authUser.username &&
+                            <div className="sidebar-container">
+                                <div className="edit-profile-btn">
+                                    <Link to={`${EDIT_PROFILE_PAGE}`}>
+                                        <Button>
+                                            Edit Profile
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        }
                     </Col>
                     <Col sm="8">
                         <div className="my-feed-div">Posts</div>
@@ -136,4 +155,4 @@ function ShowProfile(props) {
     )
 }
 
-export default connect(null, { getUserProfile, getUserPosts, fetchMoreProfilePosts, resetListChanged, checkVerified, clearVerifiedError, sendRequestAction, clearResponded })(withRouter(ShowProfile));
+export default connect(null, { getUserProfile, getUserPosts, clear404Error, fetchMoreProfilePosts, resetListChanged, checkVerified, clearVerifiedError, sendRequestAction, clearResponded })(withRouter(ShowProfile));

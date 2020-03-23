@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import defaultPic from '../../assets/defaultPic.png';
 import '../ShowPosts/ShowPosts.css';
 import { useSelector, connect } from 'react-redux';
 import { Multiselect } from 'multiselect-react-dropdown';
 import ImageUploader from 'react-images-upload';
-import { editPost, deletePost } from '../../actions/getPosts';
+import { editPost, deletePost, likeUnlikeAction } from '../../actions/getPosts';
 import { Button, ModalFooter, Input, Label, FormGroup, ModalHeader, Form, Modal, ModalBody } from 'reactstrap';
+import { dateFormat } from '../../services/dateUtil';
 
 
 function PostComponent(props) {
@@ -16,6 +16,7 @@ function PostComponent(props) {
     const myFriendsList = useSelector(state => state.posts.myFriends);
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [isLikeModalOpen, setIsLikeModalOpen] = useState(false);
     const [myFriends, setMyFriends] = useState([]);
     const [postForm, setPostForm] = useState({
         text: post.text,
@@ -57,6 +58,10 @@ function PostComponent(props) {
         }));
     }
 
+    const toggleLikeModal = () => {
+        setIsLikeModalOpen(!isLikeModalOpen);
+    }
+
     const removeFromCustomList = (selectedlist, removeitem) => {
         const friends = [...postForm.customList];
         const index = postForm.customList.indexOf(removeitem);
@@ -70,7 +75,7 @@ function PostComponent(props) {
     }
 
     const toggleModal = () => {
-        if(!modalIsOpen) {
+        if (!modalIsOpen) {
             console.log(post.custom_list)
         }
         setModalIsOpen(!modalIsOpen);
@@ -98,15 +103,31 @@ function PostComponent(props) {
         toggleModal();
     }
 
+    const likePost = () => {
+        const data = {
+            'pk': parseInt(post.pk),
+            'action': 'like'
+        }
+        props.likeUnlikeAction(data);
+    }
+
+    const unlikePost = () => {
+        const data = {
+            'pk': parseInt(post.pk),
+            'action': 'unlike'
+        }
+        props.likeUnlikeAction(data);
+    }
+
     return (
         <div>
             <div className="post-container">
                 <div className="post-user-top">
                     <div className="post-user-info">
-                        <img src={"http://localhost:8000" + post.created_by.profile_pic} alt="Profile Pic" className="post-user-dp" />
+                        <img src={"http://localhost:8000" + post.created_by.profile_pic} alt={post.created_by.full_name} className="post-user-dp" />
                         {post.created_by.full_name}
                     </div>
-                    <div className="post-user-date">{post.created_at}</div>
+                    <div className="post-user-date">{dateFormat(post.created_at)}</div>
                 </div>
                 <div className="post-text-div">
                     {post.text}
@@ -117,7 +138,15 @@ function PostComponent(props) {
                     }
                 </div>
                 <div className="post-like-div">
-                    <span className="like-button">{post.liked_by_me ? "Liked" : "Like"}</span>
+                    <span className="like-unlike-span">
+                    {post.liked_by_me ? (
+                        <span className="like-unlike unlike-button" onClick={unlikePost}>Liked</span>
+                    ) : (
+                            <span className="like-unlike like-button" onClick={likePost}>Like</span>
+                        )
+                    }
+                    <span className="like-count" onClick={toggleLikeModal}>Likes: {post.likes}</span>
+                    </span>
                     {user && user.username === post.created_by.username &&
                         <span className="edit-button" onClick={toggleModal}>Edit Post</span>
                     }
@@ -178,8 +207,21 @@ function PostComponent(props) {
                     </ModalFooter>
                 </Form>
             </Modal>
+            <Modal toggle={toggleLikeModal} isOpen={isLikeModalOpen}>
+                <ModalHeader toggle={toggleLikeModal}>
+                    Liked by
+                </ModalHeader>
+                <ModalBody>
+                    {post.liked_by.map(user => (
+                        <div className="liked-by-div" key={user}>{user}</div>
+                    ))}
+                </ModalBody>
+                <ModalFooter>
+                <Button color="danger" onClick={toggleLikeModal}>Close</Button>
+                </ModalFooter>
+            </Modal>
         </div>
     )
 }
 
-export default connect(null, { editPost, deletePost })(PostComponent);
+export default connect(null, { editPost, deletePost, likeUnlikeAction })(PostComponent);

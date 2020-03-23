@@ -5,6 +5,8 @@ import { postsReducer } from "./postsReducer";
 import { userProfile } from "./userProfile";
 import { friendRequest } from "./friendRequest";
 import { emailVerify } from './emailVerify';
+import { editProfile } from './editProfile';
+import { noPage } from "./noPage";
 
 const AllReducers = combineReducers({
     signup: signupReducer,
@@ -12,7 +14,9 @@ const AllReducers = combineReducers({
     posts: postsReducer,
     profile: userProfile,
     friend: friendRequest,
-    emailVerify: emailVerify
+    emailVerify: emailVerify,
+    editProfile: editProfile,
+    noPage: noPage
 });
 
 export default AllReducers;

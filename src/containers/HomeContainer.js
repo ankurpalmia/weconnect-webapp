@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './containers.css';
 import bgimage from '../assets/weconnect.png';
 import { Row, Col, Container, Button } from 'reactstrap';
@@ -7,13 +7,17 @@ import { SIGNUP, LOGIN } from '../constants';
 
 function HomeContainer(props) {
 
-    const signupButton = () =>{
+    const signupButton = () => {
         props.history.push(SIGNUP);
     }
 
     const loginButton = () => {
         props.history.push(LOGIN)
     }
+
+    useEffect(() => {
+        document.title = "WeConnect";
+    }, [])
 
     return (
         <Container className="container signup-container">

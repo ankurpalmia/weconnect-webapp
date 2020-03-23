@@ -26,3 +26,13 @@
 .login-error {
     color: red;
 }
+
+.forgot-password-title {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.forgot-password-input {
+    margin-bottom: 10px;
+}

@@ -1,11 +1,12 @@
 import { getFeedPosts, fetchMorePostsService } from "../services/getFeedPosts";
 import { GOT_FEED_POSTS, GET_FRIENDS_LIST, LIST_CHANGED, RESET_LIST_CHANGES } from "../constants";
 import { getFriendsList } from "../services/getFriendsList";
-import { createUserPost, editUserPost, deleteUserPost } from "../services/postServices";
+import { createUserPost, editUserPost, deleteUserPost, likeUnlikeService } from "../services/postServices";
 
 export const getFeedPostsAction = () => dispatch => {
     return getFeedPosts()
         .then(res => {
+            console.log("res.data", res.data);
             dispatch({
                 type: GOT_FEED_POSTS,
                 payload: res.data
@@ -69,14 +70,26 @@ export const editPost = (formData, pk) => dispatch => {
 
 export const deletePost = (pk) => dispatch => {
     return deleteUserPost(pk)
-    .then(res => {
-        dispatch({
-            type: LIST_CHANGED
+        .then(res => {
+            dispatch({
+                type: LIST_CHANGED
+            })
         })
-    })
-    .catch(err => {
-        console.log(err.reponse)
-    })
+        .catch(err => {
+            console.log(err.reponse)
+        })
+}
+
+export const likeUnlikeAction = (data) => dispatch => {
+    return likeUnlikeService(data)
+        .then(res => {
+            dispatch({
+                type: LIST_CHANGED
+            })
+        })
+        .catch(err => {
+            console.log(err.reponse)
+        })
 }
 
 export const resetListChanged = () => dispatch => {

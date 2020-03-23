@@ -25,7 +25,6 @@ export const postsReducer = (state = initialState, action) => {
                 error: false
             }
             else{
-                console.log("before saving", state.feedPosts)
             return {
                 ...state,
                 feedPosts: state.feedPosts.concat(action.payload.results),

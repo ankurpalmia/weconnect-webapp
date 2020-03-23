@@ -1,5 +1,5 @@
 import { fetchUserProfile, fetchUserPosts, fetchMoreProfilePostsService, sendRequestService } from "../services/profileServices"
-import { SAVE_PROFILE, PROFILE_ERROR, CLEAR_PROFILE_ERROR, SAVE_PROFILE_POSTS, REQUEST_SENT } from "../constants";
+import { SAVE_PROFILE, PROFILE_ERROR, CLEAR_PROFILE_ERROR, SAVE_PROFILE_POSTS, REQUEST_SENT, PAGE_NOT_FOUND } from "../constants";
 
 
 export const getUserProfile = (username) => dispatch => {
@@ -12,10 +12,15 @@ export const getUserProfile = (username) => dispatch => {
         })
         .catch(err => {
             if (err.response) {
-                dispatch({
-                    type: PROFILE_ERROR,
-                    payload: err.response
-                })
+                if (err.response.status === 404)
+                    dispatch({
+                        type: PAGE_NOT_FOUND
+                    })
+                else
+                    dispatch({
+                        type: PROFILE_ERROR,
+                        payload: err.response
+                    })
             }
         })
 }

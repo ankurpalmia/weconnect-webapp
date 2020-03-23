@@ -15,6 +15,7 @@ function EmailVerification(props) {
     useEffect(() => {
         let token = props.match.params.token;
         props.emailVerification(token);
+        document.title = "WeConnect: Verify";
     }, [])
 
     return (

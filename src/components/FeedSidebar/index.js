@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import defaultPic from '../../assets/defaultPic.png';
 import './FeedSidebar.css';
-import { PROFILE } from '../../constants';
+import { PROFILE, EDIT_PROFILE_PAGE } from '../../constants';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { withRouter } from 'react-router';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, Input, FormGroup, Label } from 'reactstrap';
@@ -29,7 +29,7 @@ function FeedSidebar(props) {
         if (myFriendsList) {
             let tempFriendsList = []
             for (let i = 0; i < myFriendsList.length; i++) {
-                tempFriendsList.push({ username: myFriendsList[i].username, pk: myFriendsList[i].pk, id: i})
+                tempFriendsList.push({ username: myFriendsList[i].username, pk: myFriendsList[i].pk, id: i })
             }
             setMyFriends(tempFriendsList);
         }
@@ -75,8 +75,8 @@ function FeedSidebar(props) {
     }
 
     const toggleModal = () => {
-        if(modalIsOpen)
-        props.getFeedPostsAction();
+        if (modalIsOpen)
+            props.getFeedPostsAction();
         setModalIsOpen(!modalIsOpen);
     }
 
@@ -95,18 +95,22 @@ function FeedSidebar(props) {
         props.checkVerified();
     }
 
+    const openEditProfile = () => {
+        props.history.push(EDIT_PROFILE_PAGE)
+    }
+
     const submitCreatePost = (e) => {
         e.preventDefault();
-        
+
         let formData = new FormData();
         formData.append('text', postForm.text);
-        if(postForm.image)
-        formData.append('image', postForm.image, postForm.image.name);
+        if (postForm.image)
+            formData.append('image', postForm.image, postForm.image.name);
         formData.append('privacy', postForm.privacy);
 
         postForm.customList.forEach(item => {
             formData.append('custom_list', item);
-           });
+        });
 
         props.createPost(formData);
         setPostForm({
@@ -122,12 +126,12 @@ function FeedSidebar(props) {
         <div className="sidebar-container">
             <div>
                 <div className="sidebar-pic-div">
-                    <img src={defaultPic} alt={props.user.full_name} className="sidebar-pic" />
+                    <img src={"http://localhost:8000" + props.user.profile_pic} alt={props.user.full_name} className="sidebar-pic" />
                 </div>
                 <div className="sidebar-name" onClick={showMyProfile}>
                     {props.user.full_name}
                 </div>
-                <div className="sidebar-btn">
+                <div className="sidebar-btn" onClick={openEditProfile}>
                     Edit Profile
                 </div>
                 <div className="sidebar-btn" onClick={openCreatePost}>
