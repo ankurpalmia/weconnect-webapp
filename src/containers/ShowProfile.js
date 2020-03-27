@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, shallowEqual } from 'react-redux';
-import { withRouter, Redirect } from 'react-router';
+import { withRouter } from 'react-router';
 import './containers.css';
 import { Button, Row, Col } from 'reactstrap';
 import ShowPosts from '../components/ShowPosts';

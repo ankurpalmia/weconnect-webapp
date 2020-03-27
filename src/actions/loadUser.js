@@ -5,7 +5,6 @@ import { GET_USER_DETAILS, AUTH_ERROR, SET_USER_VERIFIED, CLEAR_VERIFIED_ERROR }
 export const loadUser = () => dispatch => {
     return getUserDetails()
         .then(res => {
-            console.log(res)
             dispatch({
                 type: GET_USER_DETAILS,
                 payload: res.data
@@ -23,7 +22,6 @@ export const loadUser = () => dispatch => {
 export const checkVerified = () => dispatch => {
     return checkUserVerified()
         .then(res => {
-            console.log(res)
             dispatch({
                 type: SET_USER_VERIFIED,
                 payload: true

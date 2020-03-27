@@ -3,7 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import './EditProfile.css';
 import { Form, Container, Row, Col, Input, FormFeedback, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { PROFILE } from '../../constants';
+import { PROFILE, EDIT_PROFILE_TITLE } from '../../constants';
 import ImageUploader from 'react-images-upload';
 import { editProfile, editImageAction } from '../../actions/editProfile';
 
@@ -15,7 +15,7 @@ function EditProfile(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
-        document.title = "WeConnect: Edit Profile";
+        document.title = EDIT_PROFILE_TITLE;
     }, [])
 
     const toggleModal = () => {
@@ -89,9 +89,6 @@ function EditProfile(props) {
                 "city": state.city
             }
             props.editProfile(authUser.pk, user);
-        }
-        else {
-            console.log("Error in signup component", validate)
         }
     }
 
@@ -184,6 +181,7 @@ function EditProfile(props) {
                                 type="radio"
                                 name="gender"
                                 value="M"
+                                checked={state.gender === 'M'}
                                 onChange={changeInput}
                                 className="signup-form-input"
                                 required
@@ -194,6 +192,7 @@ function EditProfile(props) {
                                 type="radio"
                                 name="gender"
                                 value="F"
+                                checked={state.gender === 'F'}
                                 onChange={changeInput}
                                 className="signup-form-input"
                             />Female
@@ -203,6 +202,7 @@ function EditProfile(props) {
                                 type="radio"
                                 name="gender"
                                 value="O"
+                                checked={state.gender === 'O'}
                                 onChange={changeInput}
                                 className="signup-form-input"
                             />Other

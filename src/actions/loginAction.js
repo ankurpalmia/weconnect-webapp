@@ -9,7 +9,6 @@ export const loginAction = (user) => dispatch => {
             cookie.set('token', res.data.token, {
                 path: "/"
             })
-            console.log("dispatching user", res.data.token)
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data.token

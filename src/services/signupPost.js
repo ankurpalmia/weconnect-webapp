@@ -1,16 +1,18 @@
 import axios from "axios";
 import { SIGNUP_API, VERIFY_EMAIL_API } from "../constants";
 
+const config = {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
+
 export const signupPost = (user) => {
     let url = SIGNUP_API;
     return axios.post(
         url,
         user,
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
+        config
     )
 }
 
@@ -21,10 +23,6 @@ export const verifyEmailService = (token) => {
         {
             token: token
         },
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
+        config
     )
 }

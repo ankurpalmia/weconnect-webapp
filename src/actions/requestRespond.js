@@ -1,5 +1,5 @@
 import { requestRespondService } from "../services/requestRespondService";
-import { RESPONDED, CLEAR_RESPONDED } from "../constants";
+import { RESPONDED, CLEAR_RESPONDED, COMMON_ERROR } from "../constants";
 
 
 export const requestRespond = (accepted, sender, receiver) => dispatch => {
@@ -7,6 +7,12 @@ export const requestRespond = (accepted, sender, receiver) => dispatch => {
         .then(res => {
             dispatch({
                 type: RESPONDED
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: COMMON_ERROR,
+                payload: err.response
             })
         })
 }

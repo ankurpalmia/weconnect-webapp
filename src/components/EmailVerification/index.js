@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { connect, useSelector } from 'react-redux';
-import { emailVerification, clearEmailError } from '../../actions/emailVerification';
+import { emailVerification } from '../../actions/emailVerification';
 import { Row, Col, Container, Button } from 'reactstrap';
 import bgimage from "../../assets/weconnect.png";
 import "../../containers/containers.css";
 import { Link } from 'react-router-dom';
+import { EMAIL_VERIFY_TITLE } from '../../constants';
 
 function EmailVerification(props) {
 
@@ -15,7 +16,7 @@ function EmailVerification(props) {
     useEffect(() => {
         let token = props.match.params.token;
         props.emailVerification(token);
-        document.title = "WeConnect: Verify";
+        document.title = EMAIL_VERIFY_TITLE;
     }, [])
 
     return (

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SEND_FORGOT_MAIL_API, RESET_PASSWORD_API, FORGOT_PASSWORD_API } from '../constants';
+import { SEND_FORGOT_MAIL_API, RESET_PASSWORD_API, FORGOT_PASSWORD_API, USER_API } from '../constants';
 
 export const sendForgotMail = (data) => {
     let url = SEND_FORGOT_MAIL_API;
@@ -27,9 +27,10 @@ export const checkPasswordTokenService = (token) => {
     )
 }
 
-export const patchPassword = (data) => {
-    let url = RESET_PASSWORD_API;
-    return axios.post(
+export const patchPassword = (pk, data) => {
+    let url = USER_API + pk + "/reset-password/";
+    console.log(pk, data)
+    return axios.patch(
         url,
         data,
         {

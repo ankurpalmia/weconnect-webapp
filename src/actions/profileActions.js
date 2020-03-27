@@ -1,5 +1,5 @@
 import { fetchUserProfile, fetchUserPosts, fetchMoreProfilePostsService, sendRequestService } from "../services/profileServices"
-import { SAVE_PROFILE, PROFILE_ERROR, CLEAR_PROFILE_ERROR, SAVE_PROFILE_POSTS, REQUEST_SENT, PAGE_NOT_FOUND } from "../constants";
+import { SAVE_PROFILE, PROFILE_ERROR, CLEAR_PROFILE_ERROR, SAVE_PROFILE_POSTS, REQUEST_SENT, PAGE_NOT_FOUND, COMMON_ERROR } from "../constants";
 
 
 export const getUserProfile = (username) => dispatch => {
@@ -69,7 +69,10 @@ export const sendRequestAction = (username) => dispatch => {
             })
         })
         .catch(err => {
-            console.log(err.response)
+            dispatch({
+                type: COMMON_ERROR,
+                payload: err.response
+            })
         })
 }
 

@@ -1,6 +1,6 @@
 import { userLogout } from "../services/userLogout";
 import Cookies from "universal-cookie";
-import { USER_LOGOUT } from "../constants";
+import { USER_LOGOUT, COMMON_ERROR } from "../constants";
 
 export const logoutAction = () => dispatch => {
     return userLogout()
@@ -13,6 +13,9 @@ export const logoutAction = () => dispatch => {
             })
         })
         .catch(err => {
-            console.log(err)
+            dispatch({
+                type: COMMON_ERROR,
+                payload: err.response
+            })
         })
 }

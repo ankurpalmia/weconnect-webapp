@@ -1,5 +1,5 @@
 import { sendForgotMail, checkPasswordTokenService, patchPassword } from "../services/forgotPassword"
-import { MAIL_SENT, MAIL_ERROR, CLEAR_MAIL_ERROR, CORRECT_TOKEN, PASSWORD_RESET_SUCCESS } from "../constants"
+import { MAIL_SENT, MAIL_ERROR, CLEAR_MAIL_ERROR, CORRECT_TOKEN, PASSWORD_RESET_SUCCESS, COMMON_ERROR } from "../constants"
 
 export const sendForgotMailAction = (data) => dispatch => {
     return sendForgotMail(data)
@@ -29,7 +29,7 @@ export const checkPasswordToken = (token) => dispatch => {
         .then(res => {
             dispatch({
                 type: CORRECT_TOKEN,
-                payload: res.data
+                payload: res.data.pk
             })
         })
         .catch(err => {
@@ -48,15 +48,18 @@ export const checkPasswordToken = (token) => dispatch => {
         })
 }
 
-export const resetPassword = (data) => dispatch => {
-    return patchPassword(data)
+export const resetPassword = (pk, data) => dispatch => {
+    return patchPassword(pk, data)
         .then(res=>{
             dispatch({
                 type: PASSWORD_RESET_SUCCESS
             })
         })
         .catch(err=>{
-            console.log(err.response)
+            dispatch({
+                type: COMMON_ERROR,
+                payload: err.response
+            })
         })
 }
 

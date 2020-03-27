@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Label, Input, Button } from 'reactstrap';
 import bgimage from '../../assets/weconnect.png';
 import { Link } from 'react-router-dom';
 import { sendForgotMailAction, clearMailError } from '../../actions/forgotPassword';
 import { connect, useSelector } from 'react-redux';
+import { FORGOT_PASS_TITLE } from '../../constants';
 
 function ForgotPassword(props) {
 
@@ -13,11 +14,15 @@ function ForgotPassword(props) {
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
 
+    useEffect(() => {
+        document.title = FORGOT_PASS_TITLE;
+    }, [])
+
     const changeInput = event => {
         setUsername(event.target.value);
     }
 
-    if(mailError){
+    if (mailError) {
         setError(mailError);
         props.clearMailError();
     }
@@ -49,21 +54,21 @@ function ForgotPassword(props) {
                         </div>
                     ) : (
 
-                    <div className="login-form">
-                        <div className="forgot-password-title">Forgot Password</div>
-                        <Form onSubmit={submitForm}>
-                            <Label>Enter your username</Label>
-                            <Input
-                                type="text"
-                                value={username}
-                                onChange={changeInput}
-                                className="forgot-password-input"
-                            />
-                            {error && <div className="login-error">{error}</div>}
-                            <Button type="submit" onClick={submitForm}>Submit</Button> &nbsp; &nbsp;
+                            <div className="login-form">
+                                <div className="forgot-password-title">Forgot Password</div>
+                                <Form onSubmit={submitForm}>
+                                    <Label>Enter your username</Label>
+                                    <Input
+                                        type="text"
+                                        value={username}
+                                        onChange={changeInput}
+                                        className="forgot-password-input"
+                                    />
+                                    {error && <div className="login-error">{error}</div>}
+                                    <Button type="submit" onClick={submitForm}>Submit</Button> &nbsp; &nbsp;
                         </Form>
-                    </div>
-                    )}
+                            </div>
+                        )}
                     <Link to={"/"}><Button color="danger">Close</Button></Link>
                 </Col>
             </Row>

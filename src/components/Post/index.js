@@ -6,6 +6,8 @@ import ImageUploader from 'react-images-upload';
 import { editPost, deletePost, likeUnlikeAction } from '../../actions/getPosts';
 import { Button, ModalFooter, Input, Label, FormGroup, ModalHeader, Form, Modal, ModalBody } from 'reactstrap';
 import { dateFormat } from '../../services/dateUtil';
+import { Link } from 'react-router-dom';
+import { PROFILE } from '../../constants';
 
 
 function PostComponent(props) {
@@ -28,8 +30,8 @@ function PostComponent(props) {
     useEffect(() => {
         if (myFriendsList) {
             let tempFriendsList = []
-            for (let i = 0; i < myFriendsList.length; i++) {
-                tempFriendsList.push({ username: myFriendsList[i].username, pk: myFriendsList[i].pk, id: i })
+            for (let index = 0; index < myFriendsList.length; index++) {
+                tempFriendsList.push({ username: myFriendsList[index].username, pk: myFriendsList[index].pk, id: index })
             }
             setMyFriends(tempFriendsList);
         }
@@ -51,7 +53,6 @@ function PostComponent(props) {
     };
 
     const addToCustomList = (selectedlist, selecteditem) => {
-        console.log(selecteditem)
         setPostForm(state => ({
             ...state,
             ['customList']: postForm.customList.concat(selecteditem.pk)
@@ -75,9 +76,6 @@ function PostComponent(props) {
     }
 
     const toggleModal = () => {
-        if (!modalIsOpen) {
-            console.log(post.custom_list)
-        }
         setModalIsOpen(!modalIsOpen);
     }
 
@@ -104,19 +102,19 @@ function PostComponent(props) {
     }
 
     const likePost = () => {
+        const pk = parseInt(post.pk);
         const data = {
-            'pk': parseInt(post.pk),
             'action': 'like'
         }
-        props.likeUnlikeAction(data);
+        props.likeUnlikeAction(pk, data);
     }
 
     const unlikePost = () => {
+        const pk = parseInt(post.pk);
         const data = {
-            'pk': parseInt(post.pk),
             'action': 'unlike'
         }
-        props.likeUnlikeAction(data);
+        props.likeUnlikeAction(pk, data);
     }
 
     return (
@@ -124,8 +122,8 @@ function PostComponent(props) {
             <div className="post-container">
                 <div className="post-user-top">
                     <div className="post-user-info">
-                        <img src={"http://localhost:8000" + post.created_by.profile_pic} alt={post.created_by.full_name} className="post-user-dp" />
-                        {post.created_by.full_name}
+                        <img src={post.created_by.profile_pic} alt={post.created_by.full_name} className="post-user-dp" />
+                        <Link to={`${PROFILE}${post.created_by.username}`}>{post.created_by.full_name}</Link>
                     </div>
                     <div className="post-user-date">{dateFormat(post.created_at)}</div>
                 </div>
@@ -134,18 +132,18 @@ function PostComponent(props) {
                 </div>
                 <div className="post-image-div">
                     {post.image &&
-                        <img src={"http://localhost:8000" + post.image} className="post-image" />
+                        <img src={post.image} className="post-image" />
                     }
                 </div>
                 <div className="post-like-div">
                     <span className="like-unlike-span">
-                    {post.liked_by_me ? (
-                        <span className="like-unlike unlike-button" onClick={unlikePost}>Liked</span>
-                    ) : (
-                            <span className="like-unlike like-button" onClick={likePost}>Like</span>
-                        )
-                    }
-                    <span className="like-count" onClick={toggleLikeModal}>Likes: {post.likes}</span>
+                        {post.liked_by_me ? (
+                            <span className="like-unlike unlike-button" onClick={unlikePost}>Liked</span>
+                        ) : (
+                                <span className="like-unlike like-button" onClick={likePost}>Like</span>
+                            )
+                        }
+                        <span className="like-count" onClick={toggleLikeModal}>Likes: {post.likes}</span>
                     </span>
                     {user && user.username === post.created_by.username &&
                         <span className="edit-button" onClick={toggleModal}>Edit Post</span>
@@ -213,11 +211,13 @@ function PostComponent(props) {
                 </ModalHeader>
                 <ModalBody>
                     {post.liked_by.map(user => (
-                        <div className="liked-by-div" key={user}>{user}</div>
+                        <Link to={`${PROFILE}${user}`}>
+                            <div className="liked-by-div" key={user}>{user}</div>
+                        </Link>
                     ))}
                 </ModalBody>
                 <ModalFooter>
-                <Button color="danger" onClick={toggleLikeModal}>Close</Button>
+                    <Button color="danger" onClick={toggleLikeModal}>Close</Button>
                 </ModalFooter>
             </Modal>
         </div>

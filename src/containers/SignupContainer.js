@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import Signup from '../components/Signup';
 import bgimage from '../assets/weconnect.png';
 import { Row, Col, Container } from 'reactstrap';
+import { SIGNUP_TITLE } from '../constants';
 
 export default function SignupContainer() {
 
     useEffect(() => {
-        document.title = "WeConnect: Signup";
+        document.title = SIGNUP_TITLE;
     }, [])
 
     return (

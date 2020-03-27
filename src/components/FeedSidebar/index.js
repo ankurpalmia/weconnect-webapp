@@ -51,7 +51,6 @@ function FeedSidebar(props) {
     };
 
     const addToCustomList = (selectedlist, selecteditem) => {
-        console.log(selecteditem)
         setPostForm(state => ({
             ...state,
             ['customList']: postForm.customList.concat(selecteditem.pk)

@@ -3,7 +3,7 @@ import './containers.css';
 import bgimage from '../assets/weconnect.png';
 import { Row, Col, Container, Button } from 'reactstrap';
 import { withRouter } from 'react-router';
-import { SIGNUP, LOGIN } from '../constants';
+import { SIGNUP, LOGIN, HOME_TITLE } from '../constants';
 
 function HomeContainer(props) {
 
@@ -16,7 +16,7 @@ function HomeContainer(props) {
     }
 
     useEffect(() => {
-        document.title = "WeConnect";
+        document.title = HOME_TITLE;
     }, [])
 
     return (
@@ -31,7 +31,7 @@ function HomeContainer(props) {
                             Welcome to WeConnect
                         </p>
                         <p className="home-component-text">
-                            With WeConnect, you can conenct with your friends online, see their posts, react to them, and share your posts too!
+                            With WeConnect, you can connect with your friends online, see their posts, react to them, and share your posts too!
                         </p>
                         <div className="home-component-div">
                             <Button className="home-btn" color="info" onClick={signupButton}>

@@ -3,11 +3,11 @@ import { Row, Col, Form, Input, Button, Container, FormText, FormFeedback } from
 import './Signup.css';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { LOGIN, SIGNUP_SUCCESS_PAGE } from '../../constants';
+import { LOGIN, SIGNUP_SUCCESS_PAGE, EMAIL_REGX, NAME_REGX, USERNAME_REGX } from '../../constants';
 import { signupAction, clearSignupError } from '../../actions/signupAction';
 import { connect, useSelector } from 'react-redux';
 
-function Signup(props) {
+export function Signup(props) {
 
     const [usernameError, setUsernameError] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -44,7 +44,7 @@ function Signup(props) {
     };
 
     const validateEmail = (e) => {
-        const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const emailRex = EMAIL_REGX;
         let validEmail;
         if (emailRex.test(state.email)) {
             validEmail = true;
@@ -59,7 +59,7 @@ function Signup(props) {
     }
 
     const validateName = () => {
-        const nameRex = /^[a-zA-Z]+(([ ][a-zA-Z ])?[a-zA-Z]*)*$/;
+        const nameRex = NAME_REGX;
         let validName;
         if (nameRex.test(state.firstName)) {
             validName = true;
@@ -73,7 +73,7 @@ function Signup(props) {
     }
 
     const validateUsername = () => {
-        const usernameRex = /^[a-zA-Z]+(([-_.][a-zA-Z ])?[a-zA-Z]*)*$/;
+        const usernameRex = USERNAME_REGX;
         let validUsername;
         if (usernameRex.test(state.username)) {
             validUsername = true;
@@ -127,7 +127,6 @@ function Signup(props) {
     }
 
     if (usernameAuthError) {
-        console.log(usernameAuthError)
         setUsernameError(usernameAuthError);
         setValidate(state => ({
             ...state,
@@ -149,11 +148,7 @@ function Signup(props) {
                 "date_of_birth": state.dob,
                 "gender": state.gender
             }
-            console.log("in sugnup component", user)
             props.signupAction(user);
-        }
-        else {
-            console.log("Error in signup component", validate)
         }
     }
 

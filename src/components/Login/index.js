@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Form, Input, Button, Container, FormText, FormFeedback } from 'reactstrap';
+import React, { useState } from 'react';
+import { Row, Col, Form, Input, Button, Container, FormFeedback } from 'reactstrap';
+import {loadUser} from '../../actions/loadUser';
 import './Login.css';
 import { withRouter } from 'react-router';
 import { SIGNUP, FEED_PAGE, FORGOT_PASS_PAGE } from '../../constants';
@@ -7,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { loginAction, clearLoginError } from '../../actions/loginAction';
 
-function Login(props) {
+export function Login(props) {
 
     let loginError = useSelector(state => state.login.error);
     let loginToken = useSelector(state => state.login.token);
@@ -73,8 +74,7 @@ function Login(props) {
     }
 
     if(loginToken && loginError === false){
-        console.log("login token received", loginToken);
-        console.log("loginerror", loginError)
+        props.loadUser()
         props.history.push(FEED_PAGE);
         props.clearLoginError();
     }
@@ -87,6 +87,7 @@ function Login(props) {
                 "username": state.username,
                 "password": state.password,
             }
+            console.log("user: ", user)
             props.loginAction(user);
         }
     }
@@ -159,4 +160,4 @@ function Login(props) {
     )
 }
 
-export default connect(null, { loginAction, clearLoginError })(withRouter(Login));
+export default connect(null, { loginAction, clearLoginError, loadUser })(withRouter(Login));

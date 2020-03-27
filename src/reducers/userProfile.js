@@ -1,4 +1,4 @@
-import { SAVE_PROFILE, PROFILE_ERROR, CLEAR_PROFILE_ERROR, SAVE_PROFILE_POSTS, REQUEST_SENT } from "../constants"
+import { SAVE_PROFILE, PROFILE_ERROR, CLEAR_PROFILE_ERROR, SAVE_PROFILE_POSTS } from "../constants"
 
 const initialState = {
     userDetails: null,

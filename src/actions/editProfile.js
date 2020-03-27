@@ -1,5 +1,5 @@
 import { editProfileService, editPhotoService } from "../services/editProfileServices"
-import { EDIT_PROFILE_SUCCESS } from "../constants"
+import { EDIT_PROFILE_SUCCESS, COMMON_ERROR } from "../constants"
 
 export const editProfile = (pk, user) => dispatch => {
     return editProfileService(pk, user)
@@ -10,7 +10,10 @@ export const editProfile = (pk, user) => dispatch => {
         })
         .catch(err => {
             if (err.response) {
-                console.log(err.response)
+                dispatch({
+                    type: COMMON_ERROR,
+                    payload: err.response
+                })
             }
         })
 }
@@ -24,7 +27,10 @@ export const editImageAction = (pk, data) => dispatch => {
         })
         .catch(err => {
             if (err.response) {
-                console.log(err.response)
+                dispatch({
+                    type: COMMON_ERROR,
+                    payload: err.response
+                })
             }
         })
 }

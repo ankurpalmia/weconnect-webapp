@@ -34,7 +34,6 @@ function ResetPassword(props) {
     }
 
     if (resetSuccess) {
-        console.log("reset success")
         props.history.push(LOGIN);
     }
 
@@ -57,11 +56,11 @@ function ResetPassword(props) {
     const submitForm = (e) => {
         e.preventDefault();
         if (error === "") {
+            const pk = userPk
             const data = {
-                'pk': userPk,
                 'password': password
             }
-            props.resetPassword(data);
+            props.resetPassword(pk, data);
             props.history.push(LOGIN)
         }
     }

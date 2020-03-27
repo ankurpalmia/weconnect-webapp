@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { LOGIN, SIGNUP } from '../constants';
+import { LOGIN, SIGNUP, SIGNUP_TITLE } from '../constants';
 import { useSelector, connect } from 'react-redux';
 import { clearSignupError } from '../actions/signupAction';
 import './containers.css';
@@ -14,13 +14,12 @@ function SignupSuccess(props) {
 
     useEffect(() => {
         if (authError === null) {
-            console.log("authError", authError)
             props.history.push(SIGNUP);
         }
         else {
             props.clearSignupError();
         }
-        document.title = "WeConnect: Signup";
+        document.title = SIGNUP_TITLE;
     }, [])
 
     return (

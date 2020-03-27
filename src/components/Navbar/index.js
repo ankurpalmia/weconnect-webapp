@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import { LOGIN, FEED_PAGE, PROFILE } from '../../constants';
 import { useSelector, connect } from 'react-redux';
 import { logoutAction } from '../../actions/logoutAction';
+import { getUserProfile } from '../../actions/profileActions';
 
 function Navbar(props) {
 
@@ -21,6 +22,7 @@ function Navbar(props) {
     }
 
     const profileButton = () => {
+        props.getUserProfile(loggedIn.username);
         props.history.push(`${PROFILE}${loggedIn.username}`);
     }
 
@@ -30,8 +32,10 @@ function Navbar(props) {
 
     const searchProfile = event => {
         event.preventDefault();
-        if (searchInput !== "")
+        if (searchInput !== ""){
+            props.getUserProfile(searchInput);
             props.history.push(`${PROFILE}${searchInput}`);
+        }
         setSearchInput("");
     }
 
@@ -70,4 +74,4 @@ function Navbar(props) {
     )
 }
 
-export default connect(null, { logoutAction })(withRouter(Navbar));
+export default connect(null, { logoutAction, getUserProfile })(withRouter(Navbar));

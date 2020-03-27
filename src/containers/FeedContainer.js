@@ -7,6 +7,7 @@ import { getFriendsAction, getFeedPostsAction, fetchMorePosts, resetListChanged 
 
 import { withRouter } from 'react-router';
 import FeedSidebar from '../components/FeedSidebar';
+import { FEED_TITLE } from '../constants';
 
 function FeedContainer(props) {
 
@@ -30,7 +31,7 @@ function FeedContainer(props) {
         props.getFeedPostsAction();
         props.loadUser();
         props.getFriendsAction();
-        document.title = "WeConnect: Feed"
+        document.title = FEED_TITLE;
     }, [])
 
     return (
