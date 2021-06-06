@@ -1,0 +1,39 @@
+.signup-form {
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+
+.signup-form-title {
+    text-align: center;
+    font-size: 25px;
+}
+
+.signup-form-input {
+    margin: 10px;
+    margin-top: 0;
+}
+
+.name-input {
+    padding: 10px !important;
+}
+
+.dob-input {
+    padding-right: 20px !important;
+}
+
+.form-text {
+    margin: -10px 0 10px 15px !important;
+}
+
+.invalid-feedback {
+    margin: -10px 0 10px 15px !important;
+}
+
+.name-invalid-feedback {
+    margin: 0 !important;
+}
+
+.signup-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
