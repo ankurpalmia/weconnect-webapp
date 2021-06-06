@@ -1,0 +1,38 @@
+.login-form {
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin-top: 100px;
+}
+
+.signup-form-title {
+    text-align: center;
+    font-size: 25px;
+}
+
+.signup-form-input {
+    margin: 10px;
+    margin-top: 0;
+}
+
+.invalid-feedback {
+    margin: -10px 0 10px 15px !important;
+}
+
+.signup-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-error {
+    color: red;
+}
+
+.forgot-password-title {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.forgot-password-input {
+    margin-bottom: 10px;
+}

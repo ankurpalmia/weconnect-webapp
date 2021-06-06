@@ -1,0 +1,41 @@
+.sidebar-pic {
+    object-fit: cover;
+    width:200px;
+    height:200px;
+}
+
+.sidebar-container {
+    background-color: rgb(226, 226, 226);
+    padding: 25px;
+    width: 250px;
+    text-align: center;
+}
+
+.sidebar-name {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.sidebar-btn {
+    border: 1px gray solid;
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.sidebar-btn:hover {
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: slateblue;
+}
+
+.verified-error-div {
+    color: red;
+    margin-top: 10px;
+}
+  
